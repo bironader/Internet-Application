@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectManagmentModelStoreContainer" CdmEntityContainer="ProjectManagmentEntities2">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ProjectManagmentModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fn" ColumnName="fn" />
+          <ScalarProperty Name="ln" ColumnName="ln" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usertypes">
+      <EntityTypeMapping TypeName="ProjectManagmentModel.usertype">
+        <MappingFragment StoreEntitySet="usertype">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="usertype1" ColumnName="usertype" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

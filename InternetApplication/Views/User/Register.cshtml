@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+
+
+
+
+
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand">Project Management</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>
+<div class="container">
+    @if (ViewBag.error)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning">
+                    <strong>Error!</strong> Enter valid data in the register form
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Register</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5 center-block" style="float: none">
+            <form method="post" enctype="multipart/form-data" action="@Url.Action("Register", "User")">
+                <div class="form-group">
+                    <label for="FirstName">FirstName <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" id="fname" name="fn">
+                </div>
+                <div class="form-group">
+                    <label for="LastName">LastName <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" id="lname" name="ln">
+                </div>
+                <div class="form-group">
+                    <label for="Username">Username <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password <span style="color: red">*</span></label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="repassword">Re-enter password <span style="color: red">*</span></label>
+                    <input type="password" class="form-control" id="repassword" name="repassword">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input type="number" class="form-control" id="mobile" name="mobile">
+                </div>
+                <div class="form-group">
+                    <label for="tyoe">Account type</label>
+                    <select class="form-control selectpicker" id="type" name="user_type_id">
+                        <option value="1">Admin</option>
+                        <option value="2">Customer</option>
+                        <option value="3">Marketing Director (MD)</option>
+                        <option value="4">Marketing Team Leader (MTL)</option>
+                        <option value="5">Marketing Trainee (MT)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job">Job Description</label>
+                    <input type="text" class="form-control" id="job" name="jobdesc">
+                </div>
+                <div class="form-group">
+                    <label for="image">Profile image</label>
+                    <input type="file" name="fileUploader" id="image"  >
+                    <small id="fileHelp" class="form-text text-muted">the file should be an image ex: .jpg or .png and doesn't exceed 1 MB. the pr</small>
+                </div>
+
+                <input value="Register" name="submit" type="submit" class="btn btn-primary" style="margin-right: 10px">
+                <span>already have an account? <a href="@Url.Action("Login", "User")">Login</a></span>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,97 @@
+﻿@model  IEnumerable<InternetApplication.Models.project>
+
+
+    @{
+        ViewBag.Title = "Home";
+    }
+
+
+    <div id="wrapper" class="toggled">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Project Manager
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Home","Project")">Dashboard</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("CustomerProfile","User")">My Profile</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Assigned","Project")">Assigned</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Logout","User")">Logout</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <header>
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/home.html">Project Manager</a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+            </header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 center-block" style="float:none">
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subj">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Description</label>
+                                <textarea name="descr" class="form-control" rows="10"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">Post</button>
+                        </form>
+                    </div>
+                  @foreach (var project in Model)
+                  {
+                        <div class="post-box">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h2>@project.subj</h2>
+                                </div>
+
+                            </div>
+                            <div class=row>
+                                <div class="col-md-12 postbody">
+                                    <p style="padding: 20px 0 5px 0" class="posttext">
+                                       @project.descr
+                                    </p>
+                                    <h4 class="text-right" style="margin-top: 0">
+                                        authored by <a href="@Url.Action("CustomerProfile", "User")">@project.created_by_name</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                  }
+
+
+                </div>
+            </div>
+
+            <div id="footer">
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+
+
+
+

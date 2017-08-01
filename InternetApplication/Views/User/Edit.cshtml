@@ -1,0 +1,372 @@
+﻿@model  IEnumerable<InternetApplication.Models.project>
+@{
+    ViewBag.Title = "Edit";
+}
+@{
+    var Users = (List<InternetApplication.Models.User>)ViewBag.userslist;
+}
+
+<div id="wrapper" class="toggled">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Project Manager
+                </a>
+            </li>
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="#">Shortcuts</a>
+            </li>
+            <li>
+                <a href="#">Overview</a>
+            </li>
+            <li>
+                <a href="#">Events</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <header>
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/home.html">Project Manager</a>
+                    </div>
+
+
+
+                </div><!-- /.container-fluid -->
+            </nav>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#projects" role="tab" data-toggle="tab" aria-controls="projects" aria-expanded="true">Projects</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#users" role="tab" data-toggle="tab" aria-controls="users" aria-expanded="true">Users</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div id="projects" class="tab-pane fade in active" role="tabpanel" aria-labelledby="projects-tab">
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-md-10">
+                            <h4>All Projects</h4>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button class="btn btn-default btn-add" data-toggle="modal" data-target="#newProject">
+                                <span class="glyphicon glyphicon-plus"></span> New Project
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- new project modal -->
+                    <div id="newProject" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">New Project</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="@Url.Action("Home","Project")">
+                                        <div class="form-group">
+                                            <label for="subject">Subject</label>
+                                            <input type="text" class="form-control" id="subject" name="subject">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Description</label>
+                                            <textarea name="description" class="form-control" rows="10"></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Create</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var project in Model)
+                    {
+                    <hr style="margin: 10px 0">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h5>@project.id</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <h5>@project.subj</h5>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button class="btn btn-primary btn-modify" data-toggle="modal"
+                                    data-target="#editProject" onclick="editProject(@project.id, '@project.subj', '@project.descr')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <form method="post" class="delete-form" action="@Url.Action("Delete","User",new {project.id})">
+                                <input type="hidden" name="id" value="@project.id">
+                                <button type="submit" class="btn btn-danger btn-modify">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                   
+                    }
+                </div>
+
+
+                <!-- new project modal -->
+                <div id="editProject" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Project</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="editProjectForm" action="@Url.Action("Edit","User")">
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <input id="id" type="hidden" name="id">
+                                        <input id="subject" type="text" class="form-control" name="subject">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Description</label>
+                                        <textarea id="description" name="description" class="form-control" rows="10"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Post</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="users" class="tab-pane fade" role="tabpanel" aria-labelledby="projects-tab">
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-md-10">
+                            <h4>All Users</h4>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button class="btn btn-default btn-add" data-toggle="modal" data-target="#newUser">
+                                <span class="glyphicon glyphicon-plus"></span> New User
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- new User modal -->
+                    <div id="newUser" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">New User</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="post" enctype="multipart/form-data" action="@Url.Action("Register", "User")">
+                                        <div class="form-group">
+                                            <label for="FirstName">FirstName <span style="color: red">*</span></label>
+                                            <input type="text" class="form-control" id="fname" name="fn">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="LastName">LastName <span style="color: red">*</span></label>
+                                            <input type="text" class="form-control" id="lname" name="ln">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Username">Username <span style="color: red">*</span></label>
+                                            <input type="text" class="form-control" id="username" name="username">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Password <span style="color: red">*</span></label>
+                                            <input type="password" class="form-control" id="password" name="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="repassword">Re-enter password <span style="color: red">*</span></label>
+                                            <input type="password" class="form-control" id="repassword" name="repassword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">E-mail</label>
+                                            <input type="email" class="form-control" id="email" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mobile">Mobile</label>
+                                            <input type="number" class="form-control" id="mobile" name="mobile">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tyoe">Account type</label>
+                                            <select class="form-control selectpicker" id="type" name="user_type_id">
+                                                <option value="1">Admin</option>
+                                                <option value="2">Customer</option>
+                                                <option value="3">Marketing Director (MD)</option>
+                                                <option value="4">Marketing Team Leader (MTL)</option>
+                                                <option value="5">Marketing Trainee (MT)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="job">Job Description</label>
+                                            <input type="text" class="form-control" id="job" name="jobdesc">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="image">Profile image</label>
+                                            <input type="file" name="fileUploader" id="image">
+                                            <small id="fileHelp" class="form-text text-muted">the file should be an image ex: .jpg or .png and doesn't exceed 1 MB. the pr</small>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Add</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var user in Users)
+                    {
+                    <hr style="margin: 10px 0">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5>@user.username.Trim()</h5>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button class="btn btn-primary btn-modify" data-toggle="modal"
+                                    data-target="#editUser"
+                                    onclick="editUser('@user.username.Trim()', '@user.fn.Trim()', '@user.ln.Trim()', '@user.email.Trim()', '@user.mobile.Trim()', '@user.jobdesc.Trim()', @user.user_type_id)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <form method="post" class="delete-form" action="@Url.Action("DeleteUser","User",new {username = @user.username})">
+                                
+                                <button type="submit" class="btn btn-danger btn-modify">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    }
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="editUser" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit User</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="post" id="editUserForm" action="@Url.Action("EditUser","User")">
+                            <div class="form-group">
+                                <label for="Username">Username </label>
+                                <input type="text" class="form-control" name="username" id="username" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="FirstName">FirstName <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                            <div class="form-group">
+                                <label for="LastName">LastName <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" id="lname" name="lname">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile">Mobile</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile">
+                            </div>
+                            <div class="form-group">
+                                <label for="job">Job Description</label>
+                                <input type="text" class="form-control" id="job" name="job">
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Account type</label>
+                                <select class="form-control selectpicker" id="type" name="type">
+                                    <option value="1">Admin</option>
+                                    <option value="2">Customer</option>
+                                    <option value="3">Marketing Director (MD)</option>
+                                    <option value="4">Marketing Team Leader (MTL)</option>
+                                    <option value="5">Marketing Trainee (MT)</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success">Edit</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div id="footer">
+            <div class="container">
+                <p>Copyright <a href="#">ay habal</a> and <a href="#">ay 3abat</a>.</p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    <script>
+        function editProject(id, subject, description){
+            $("#editProjectForm #id").attr("value", id.toString());
+            $("#editProjectForm #subject").attr("value", subject)
+            $("#editProjectForm #description").text(description);
+        }
+
+        function editUser(username, fname, lname, email, mobile, job, type){
+            $("#editUserForm #username").attr("value", username);
+            $("#editUserForm #fname").attr("value", fname);
+            $("#editUserForm #lname").attr("value", lname);
+            $("#editUserForm #email").attr("value", email);
+            $("#editUserForm #mobile").attr("value", mobile);
+            $("#editUserForm #job").attr("value", job);
+            $("#editUserForm #type").val(type);
+        }
+
+    </script>
+    <script src="~/scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+

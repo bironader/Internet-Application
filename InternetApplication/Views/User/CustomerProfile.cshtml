@@ -1,0 +1,115 @@
+﻿@model  IEnumerable<InternetApplication.Models.project>
+@{
+    ViewBag.Title = "CustomerProfile";
+}
+
+<header>
+    <nav class="navbar navbar-default" style="margin-bottom:0">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home.html">Project Manager</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="/blog/newpost">New Post</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/blog/register">Register</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>
+
+<nav class="navbar navbar-default navbar-customer">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="/blog/newpost">New Post</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li>
+                    <a href="#">My Profile</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Logout","User")">Logout</a>
+                </li>
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
+                        
+                        <img src="@ViewBag.img" alt="" class="img-rounded img-responsive" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
+                        <h3 class="text-center" style="margin-bottom:5px">@ViewBag.fullname</h3>
+                        <h4 class="text-center" style="color:blue; margin-top:0">@ViewBag.username</h4>
+                        <p>
+                            <i class="glyphicon glyphicon-envelope"></i>@ViewBag.email
+                            <br />
+                            <i class="glyphicon glyphicon-phone"></i>@ViewBag.phone
+                            <br />
+                            <i class="glyphicon glyphicon-book"></i>@ViewBag.desc
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 center-block" style="float:none">
+
+                </div>
+                <h3 class="text-center" style="margin:0">Projects</h3>
+                <div class="col-md-12">
+                    @foreach (var project in Model)
+                    {
+                    <div class="post-box">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h2>@project.subj</h2>
+                            </div>
+                            <div class="col-md-2">
+                                <h5 class="text-right" style="margin-top: 30px">12/12/2012</h5>
+                            </div>
+                        </div>
+                        <div class=row>
+                            <div class="col-md-12 postbody">
+                                <p style="padding: 20px 0 5px 0" class="posttext">
+                                     @project.descr
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+</div>
+
+<div id="footer">
+    <div class="container">
+        <p>Copyright <a href="#">ay habal</a> and <a href="#">ay 3abat</a>.</p>
+    </div>
+</div>
